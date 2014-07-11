@@ -55,7 +55,7 @@ CGFloat const BASE_BUTTON_PADDING = 10.0f;
     [super viewDidLoad];
 }
 
-- (void)setMainButtonImage:(UIImage *)buttonImage text:(NSString *)buttonText
+- (void)setMainButtonWithImage:(UIImage *)buttonImage text:(NSString *)buttonText
 {
     CGPoint mainButtonPoint = [self calculateButtonClosePointWithCGSize:self.mainButtonSize];
     
@@ -70,7 +70,7 @@ CGFloat const BASE_BUTTON_PADDING = 10.0f;
     [self.view addSubview:_mainButton];
 }
 
-- (void)addSideButtonImage:(UIImage *)buttonImage text:(NSString *)buttonText
+- (void)addSideButtonWithImage:(UIImage *)buttonImage text:(NSString *)buttonText
 {
     CGPoint sideButtonPoint = [self calculateButtonClosePointWithCGSize:self.sideButtonSize];
     

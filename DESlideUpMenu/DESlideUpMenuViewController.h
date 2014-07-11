@@ -49,8 +49,8 @@ typedef enum DESlideButtonSide : NSInteger {
 
 - (id)initWithFrame:(CGRect)rect;
 
-- (void)setMainButtonImage:(UIImage*)buttonImage text:(NSString*)buttonText;
-- (void)addSideButtonImage:(UIImage*)buttonImage text:(NSString*)buttonText;
+- (void)setMainButtonWithImage:(UIImage*)buttonImage text:(NSString*)buttonText;
+- (void)addSideButtonWithImage:(UIImage*)buttonImage text:(NSString*)buttonText;
 
 - (BOOL)highlightButtonIndex:(NSInteger)buttonIndex;
 
