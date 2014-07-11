@@ -32,6 +32,8 @@ CGFloat const BASE_BUTTON_PADDING = 10.0f;
     
     if (self) {
         self.view.frame = rect;
+        self.view.backgroundColor = [UIColor clearColor];
+        
         
         self.buttonCorner = DESlideButtonCornerTopLeft;
         self.buttonSide = DESlideButtonSideRow;
@@ -179,9 +181,8 @@ CGFloat const BASE_BUTTON_PADDING = 10.0f;
     
     if (highlightButton != nil)
     {
-        [_mainButton startGlowing];
-        
-        if (_isOpened) [highlightButton startGlowing];
+        if (_isOpened)  [highlightButton startGlowing];
+        else            [_mainButton startGlowing];
         
         return YES;
     }
