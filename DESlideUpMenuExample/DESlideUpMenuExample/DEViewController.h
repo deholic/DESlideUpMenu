@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DESlideUpMenuViewController.h"
 
-@interface DEViewController : UIViewController
+@interface DEViewController : UIViewController <DESlideUpMenuDelegate>
 
 @end

@@ -21,6 +21,8 @@
 		B8FE77A4196F86C500D1259B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8FE7786196F86C500D1259B /* UIKit.framework */; };
 		B8FE77AC196F86C500D1259B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B8FE77AA196F86C500D1259B /* InfoPlist.strings */; };
 		B8FE77AE196F86C500D1259B /* DESlideUpMenuExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FE77AD196F86C500D1259B /* DESlideUpMenuExampleTests.m */; };
+		B8FE77BC196F87F800D1259B /* DESlideUpMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FE77B9196F87F800D1259B /* DESlideUpMenuViewController.m */; };
+		B8FE77BD196F87F800D1259B /* UIView+Glow.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FE77BB196F87F800D1259B /* UIView+Glow.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +55,10 @@
 		B8FE77A9196F86C500D1259B /* DESlideUpMenuExampleTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DESlideUpMenuExampleTests-Info.plist"; sourceTree = "<group>"; };
 		B8FE77AB196F86C500D1259B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B8FE77AD196F86C500D1259B /* DESlideUpMenuExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DESlideUpMenuExampleTests.m; sourceTree = "<group>"; };
+		B8FE77B8196F87F800D1259B /* DESlideUpMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DESlideUpMenuViewController.h; path = ../../DESlideUpMenu/DESlideUpMenuViewController.h; sourceTree = "<group>"; };
+		B8FE77B9196F87F800D1259B /* DESlideUpMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DESlideUpMenuViewController.m; path = ../../DESlideUpMenu/DESlideUpMenuViewController.m; sourceTree = "<group>"; };
+		B8FE77BA196F87F800D1259B /* UIView+Glow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+Glow.h"; path = "../../DESlideUpMenu/UIView+Glow.h"; sourceTree = "<group>"; };
+		B8FE77BB196F87F800D1259B /* UIView+Glow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+Glow.m"; path = "../../DESlideUpMenu/UIView+Glow.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +118,7 @@
 		B8FE7788196F86C500D1259B /* DESlideUpMenuExample */ = {
 			isa = PBXGroup;
 			children = (
+				B8FE77B7196F87E400D1259B /* DESlideUpMenu */,
 				B8FE7791196F86C500D1259B /* DEAppDelegate.h */,
 				B8FE7792196F86C500D1259B /* DEAppDelegate.m */,
 				B8FE7794196F86C500D1259B /* Main.storyboard */,
@@ -150,6 +157,17 @@
 				B8FE77AA196F86C500D1259B /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B8FE77B7196F87E400D1259B /* DESlideUpMenu */ = {
+			isa = PBXGroup;
+			children = (
+				B8FE77B8196F87F800D1259B /* DESlideUpMenuViewController.h */,
+				B8FE77B9196F87F800D1259B /* DESlideUpMenuViewController.m */,
+				B8FE77BA196F87F800D1259B /* UIView+Glow.h */,
+				B8FE77BB196F87F800D1259B /* UIView+Glow.m */,
+			);
+			name = DESlideUpMenu;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -252,7 +270,9 @@
 			files = (
 				B8FE778F196F86C500D1259B /* main.m in Sources */,
 				B8FE7799196F86C500D1259B /* DEViewController.m in Sources */,
+				B8FE77BD196F87F800D1259B /* UIView+Glow.m in Sources */,
 				B8FE7793196F86C500D1259B /* DEAppDelegate.m in Sources */,
+				B8FE77BC196F87F800D1259B /* DESlideUpMenuViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
