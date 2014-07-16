@@ -39,7 +39,7 @@ CGFloat const BASE_BUTTON_PADDING = 10.0f;
         self.view.backgroundColor = [UIColor clearColor];
         
         self.buttonCorner = DESlideButtonCornerTopLeft;
-        self.buttonSide = DESlideButtonSideRow;
+        self.buttonSide = DESlideButtonSideVertical;
         
         self.mainButtonSize = (CGSize){BASE_BUTTON_SIDE_SIZE, BASE_BUTTON_SIDE_SIZE};
         self.sideButtonSize = (CGSize){BASE_BUTTON_SIDE_SIZE, BASE_BUTTON_SIDE_SIZE};
@@ -84,44 +84,87 @@ CGFloat const BASE_BUTTON_PADDING = 10.0f;
     [_bgImageView setImage:backgroundImage];
 }
 
-- (void)setMainButtonWithImage:(UIImage *)buttonImage text:(NSString *)buttonText
+- (void)setMainButtonWithButton:(UIButton *)button
 {
+    if (_mainButton)
+    {
+        [_mainButton removeFromSuperview];
+        _mainButton = nil;
+    }
+    
     CGPoint mainButtonPoint = [self calculateButtonClosePointWithCGSize:self.mainButtonSize];
     
-    _mainButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    _mainButton.frame = CGRectMake(mainButtonPoint.x, mainButtonPoint.y, self.mainButtonSize.width, self.mainButtonSize.height);
-    _mainButton.titleLabel.text = buttonText;
+    [button setFrame:CGRectMake(mainButtonPoint.x, mainButtonPoint.y, self.mainButtonSize.width, self.mainButtonSize.height)];
+    [button addTarget:self action:@selector(toggleMenuWithButton:) forControlEvents:UIControlEventTouchUpInside];
     
-    [_mainButton setImage:buttonImage forState:UIControlStateNormal];
-    [_mainButton addTarget:self action:@selector(toggleMenuWithButton:) forControlEvents:UIControlEventTouchUpInside];
+    _mainButton = button;
     
     [self.view addSubview:_mainButton];
 }
 
-- (void)addSideButtonWithImage:(UIImage *)buttonImage text:(NSString *)buttonText
+- (void)setMainButtonWithImage:(UIImage *)buttonImage text:(NSString *)buttonText
+{
+    UIButton *prepareMainButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+    [prepareMainButton setTitle:buttonText forState:UIControlStateNormal];
+    [prepareMainButton setImage:buttonImage forState:UIControlStateNormal];
+    
+    [self setMainButtonWithButton:prepareMainButton];
+}
+
+- (void)setMainButtonWithImage:(UIImage *)buttonImage text:(NSString *)buttonText tag:(NSInteger)tag
+{
+    UIButton *prepareMainButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+    [prepareMainButton setTitle:buttonText forState:UIControlStateNormal];
+    [prepareMainButton setImage:buttonImage forState:UIControlStateNormal];
+    [prepareMainButton setTag:tag];
+    
+    [self setMainButtonWithButton:prepareMainButton];
+}
+
+- (void)addSideButtonWithButton:(UIButton*)button
 {
     CGPoint sideButtonPoint = [self calculateButtonClosePointWithCGSize:self.sideButtonSize];
     
+    [button setFrame:CGRectMake(sideButtonPoint.x, sideButtonPoint.y, self.sideButtonSize.width, self.sideButtonSize.height)];
+    [button addTarget:self action:@selector(touchSideButton:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view insertSubview:button belowSubview:_mainButton];
+    [_sideButtonArray addObject:button];
+}
+
+- (void)addSideButtonWithImage:(UIImage *)buttonImage text:(NSString *)buttonText
+{
     UIButton *sideButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    sideButton.frame = CGRectMake(sideButtonPoint.x, sideButtonPoint.y, self.sideButtonSize.width, self.sideButtonSize.height);
-    sideButton.titleLabel.text = buttonText;
-    sideButton.alpha = 0;
     
+    [sideButton setTitle:buttonText forState:UIControlStateNormal];
     [sideButton setImage:buttonImage forState:UIControlStateNormal];
-    [sideButton addTarget:self action:@selector(touchSideButton:) forControlEvents:UIControlEventTouchUpInside];
+    [sideButton setAlpha:0];
+   
+    [self addSideButtonWithButton:sideButton];
+}
+
+- (void)addSideButtonWithImage:(UIImage *)buttonImage text:(NSString *)buttonText tag:(NSInteger)tag
+{
+    UIButton *sideButton = [UIButton buttonWithType:UIButtonTypeCustom];
     
-    [self.view insertSubview:sideButton belowSubview:_mainButton];
-    [_sideButtonArray addObject:sideButton];
+    [sideButton setTitle:buttonText forState:UIControlStateNormal];
+    [sideButton setImage:buttonImage forState:UIControlStateNormal];
+    [sideButton setTag:tag];
+    [sideButton setAlpha:0];
+    
+    [self addSideButtonWithButton:sideButton];
 }
 
 - (CGFloat)mainButtonSideSize
 {
-    return self.buttonSide == DESlideButtonSideRow ? self.mainButtonSize.height : self.mainButtonSize.width;
+    return self.buttonSide == DESlideButtonSideVertical ? self.mainButtonSize.height : self.mainButtonSize.width;
 }
 
 - (CGFloat)sideButtonSideSize
 {
-    return self.buttonSide == DESlideButtonSideRow ? self.sideButtonSize.height : self.sideButtonSize.width;
+    return self.buttonSide == DESlideButtonSideVertical ? self.sideButtonSize.height : self.sideButtonSize.width;
 }
 
 #pragma mark - Private Function
@@ -155,8 +198,8 @@ CGFloat const BASE_BUTTON_PADDING = 10.0f;
     CGSize viewSize = self.view.frame.size;
     CGFloat sideButtonPadding;
     
-    if ((DESlideButtonSideRow == self.buttonSide && (DESlideButtonCornerTopLeft == self.buttonCorner || DESlideButtonCornerTopRight == self.buttonCorner))
-        || (DESlideButtonSideColumn == self.buttonSide && (DESlideButtonCornerTopLeft == self.buttonCorner || DESlideButtonCornerBottomLeft == self.buttonCorner)))
+    if ((DESlideButtonSideVertical == self.buttonSide && (DESlideButtonCornerTopLeft == self.buttonCorner || DESlideButtonCornerTopRight == self.buttonCorner))
+        || (DESlideButtonSideHorizontal == self.buttonSide && (DESlideButtonCornerTopLeft == self.buttonCorner || DESlideButtonCornerBottomLeft == self.buttonCorner)))
     {
         sideButtonPadding = self.mainButtonSideSize + self.buttonPadding * (buttonIndex + 2) + self.sideButtonSideSize * buttonIndex;
     }
@@ -168,7 +211,7 @@ CGFloat const BASE_BUTTON_PADDING = 10.0f;
     switch (self.buttonCorner) {
         case DESlideButtonCornerTopLeft:
         {
-            if (DESlideButtonSideRow == self.buttonSide)
+            if (DESlideButtonSideVertical == self.buttonSide)
                 calcPoint = (CGPoint){self.buttonPadding, sideButtonPadding};
             else
                 calcPoint = (CGPoint){sideButtonPadding, self.buttonPadding};
@@ -176,7 +219,7 @@ CGFloat const BASE_BUTTON_PADDING = 10.0f;
             break;
         case DESlideButtonCornerTopRight:
         {
-            if (DESlideButtonSideRow == self.buttonSide)
+            if (DESlideButtonSideVertical == self.buttonSide)
                 calcPoint = (CGPoint){viewSize.width - self.buttonPadding - self.sideButtonSize.width, sideButtonPadding};
             else
                 calcPoint = (CGPoint){viewSize.width - sideButtonPadding, self.buttonPadding};
@@ -184,7 +227,7 @@ CGFloat const BASE_BUTTON_PADDING = 10.0f;
             break;
         case DESlideButtonCornerBottomLeft:
         {
-            if (DESlideButtonSideRow == self.buttonSide)
+            if (DESlideButtonSideVertical == self.buttonSide)
                 calcPoint = (CGPoint){self.buttonPadding, viewSize.height - sideButtonPadding};
             else
                 calcPoint = (CGPoint){sideButtonPadding, viewSize.height - self.buttonPadding - self.sideButtonSize.height};
@@ -192,7 +235,7 @@ CGFloat const BASE_BUTTON_PADDING = 10.0f;
             break;
         case DESlideButtonCornerBottomRight:
         {
-            if (DESlideButtonSideRow == self.buttonSide)
+            if (DESlideButtonSideVertical == self.buttonSide)
                 calcPoint = (CGPoint){viewSize.width - self.buttonPadding - self.sideButtonSize.width, viewSize.height - sideButtonPadding};
             else
                 calcPoint = (CGPoint){viewSize.width - sideButtonPadding, viewSize.height - self.buttonPadding - self.sideButtonSize.height};
@@ -212,7 +255,7 @@ CGFloat const BASE_BUTTON_PADDING = 10.0f;
     switch (self.buttonCorner) {
         case DESlideButtonCornerTopLeft:
         {
-            if (DESlideButtonSideRow == self.buttonSide)
+            if (DESlideButtonSideVertical == self.buttonSide)
             {
                 generatedRect = CGRectMake(0,
                                            0,
@@ -231,7 +274,7 @@ CGFloat const BASE_BUTTON_PADDING = 10.0f;
             break;
         case DESlideButtonCornerTopRight:
         {
-            if (DESlideButtonSideRow == self.buttonSide)
+            if (DESlideButtonSideVertical == self.buttonSide)
             {
                 generatedRect = CGRectMake(CGRectGetWidth(self.view.frame) - mainButtonWithPaddingSize,
                                            0,
@@ -249,7 +292,7 @@ CGFloat const BASE_BUTTON_PADDING = 10.0f;
             break;
         case DESlideButtonCornerBottomLeft:
         {
-            if (DESlideButtonSideRow == self.buttonSide)
+            if (DESlideButtonSideVertical == self.buttonSide)
             {
                 generatedRect = CGRectMake(0,
                                            CGRectGetHeight(self.view.frame) - containerViewSize,
@@ -267,7 +310,7 @@ CGFloat const BASE_BUTTON_PADDING = 10.0f;
             break;
         case DESlideButtonCornerBottomRight:
         {
-            if (DESlideButtonSideRow == self.buttonSide)
+            if (DESlideButtonSideVertical == self.buttonSide)
             {
                 generatedRect = CGRectMake(CGRectGetWidth(self.view.frame) - mainButtonWithPaddingSize,
                                            CGRectGetHeight(self.view.frame) - containerViewSize,

@@ -24,12 +24,17 @@
 {
     [super viewDidLoad];
     
+    [self attachSideMenuView];
+}
+
+- (void)attachSideMenuView
+{
     slideUpMenu = [[DESlideUpMenuViewController alloc] initWithFrame:self.targetView.bounds];
     
     [slideUpMenu setDelegate:self];
     [slideUpMenu setMainButtonSize:CGSizeMake(30.0f, 30.0f)];
     [slideUpMenu setButtonCorner:DESlideButtonCornerBottomLeft];
-    [slideUpMenu setButtonSide:DESlideButtonSideColumn];
+    [slideUpMenu setButtonSide:DESlideButtonSideHorizontal];
     
     UIImage *cappedBgImage = [[UIImage imageNamed:@"button_bar"] resizableImageWithCapInsets:UIEdgeInsetsMake(24.0f, 24.0f, 24.0f, 24.0f)];
     
@@ -43,6 +48,7 @@
     [slideUpMenu addSideButtonWithImage:[UIImage imageNamed:@"jumprope"] text:nil];
     
     [self.targetView addSubview:slideUpMenu.view];
+    [self addChildViewController:slideUpMenu];
 }
 
 - (IBAction)touchHighlightButton:(id)sender

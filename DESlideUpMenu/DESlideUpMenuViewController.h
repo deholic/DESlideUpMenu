@@ -28,8 +28,8 @@ typedef enum DESlideButtonCorner : NSInteger {
 } DESlideButtonCorner;
 
 typedef enum DESlideButtonSide : NSInteger {
-    DESlideButtonSideRow = 201,
-    DESlideButtonSideColumn
+    DESlideButtonSideVertical = 201,
+    DESlideButtonSideHorizontal
 } DESlideButtonSide;
 
 @interface DESlideUpMenuViewController : UIViewController
@@ -53,8 +53,14 @@ typedef enum DESlideButtonSide : NSInteger {
 - (id)initWithFrame:(CGRect)rect;
 
 - (void)setBackgroundImage:(UIImage*)backgroundImage;
+
+- (void)setMainButtonWithButton:(UIButton*)button;
 - (void)setMainButtonWithImage:(UIImage*)buttonImage text:(NSString*)buttonText;
+- (void)setMainButtonWithImage:(UIImage *)buttonImage text:(NSString *)buttonText tag:(NSInteger)tag;
+
+- (void)addSideButtonWithButton:(UIButton*)button;
 - (void)addSideButtonWithImage:(UIImage*)buttonImage text:(NSString*)buttonText;
+- (void)addSideButtonWithImage:(UIImage *)buttonImage text:(NSString *)buttonText tag:(NSInteger)tag;
 
 - (BOOL)highlightButtonIndex:(NSInteger)buttonIndex;
 
