@@ -72,7 +72,7 @@ static char* GLOWVIEW_KEY = "GLOWVIEW";
     animation.fromValue = @(fromIntensity);
     animation.toValue = @(toIntensity);
     animation.repeatCount = repeat ? HUGE_VAL : 0;
-    animation.duration = 1.0;
+    animation.duration = 0.5;
     animation.autoreverses = YES;
     animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     

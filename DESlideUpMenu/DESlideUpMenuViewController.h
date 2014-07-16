@@ -44,11 +44,15 @@ typedef enum DESlideButtonSide : NSInteger {
 @property (nonatomic, assign) CGFloat buttonPadding;
 @property (nonatomic, assign) CGFloat animationSpeed;
 
+@property (nonatomic, assign, readonly) CGFloat mainButtonSideSize;
+@property (nonatomic, assign, readonly) CGFloat sideButtonSideSize;
+
 @property (nonatomic, strong) UIImage *mainButtonBgImage;
 @property (nonatomic, strong) UIImage *sideButtonBgImage;
 
 - (id)initWithFrame:(CGRect)rect;
 
+- (void)setBackgroundImage:(UIImage*)backgroundImage;
 - (void)setMainButtonWithImage:(UIImage*)buttonImage text:(NSString*)buttonText;
 - (void)addSideButtonWithImage:(UIImage*)buttonImage text:(NSString*)buttonText;
 

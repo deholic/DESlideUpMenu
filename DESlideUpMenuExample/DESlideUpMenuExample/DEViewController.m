@@ -24,17 +24,23 @@
 {
     [super viewDidLoad];
     
-    slideUpMenu = [[DESlideUpMenuViewController alloc] initWithFrame:CGRectMake(0, 0, self.targetView.frame.size.width, self.targetView.frame.size.height)];
+    slideUpMenu = [[DESlideUpMenuViewController alloc] initWithFrame:self.targetView.bounds];
     
     [slideUpMenu setDelegate:self];
-    [slideUpMenu setMainButtonSize:CGSizeMake(50.0f, 50.0f)];
-    [slideUpMenu setButtonCorner:DESlideButtonCornerBottomRight];
-    [slideUpMenu setButtonSide:DESlideButtonSideRow];
+    [slideUpMenu setMainButtonSize:CGSizeMake(30.0f, 30.0f)];
+    [slideUpMenu setButtonCorner:DESlideButtonCornerBottomLeft];
+    [slideUpMenu setButtonSide:DESlideButtonSideColumn];
     
-    [slideUpMenu setMainButtonWithImage:nil text:nil];
-    [slideUpMenu addSideButtonWithImage:nil text:nil];
-    [slideUpMenu addSideButtonWithImage:nil text:nil];
-    [slideUpMenu addSideButtonWithImage:nil text:nil];
+    UIImage *cappedBgImage = [[UIImage imageNamed:@"button_bar"] resizableImageWithCapInsets:UIEdgeInsetsMake(24.0f, 24.0f, 24.0f, 24.0f)];
+    
+    [slideUpMenu setBackgroundImage:cappedBgImage];
+    
+    [slideUpMenu setMainButtonWithImage:[UIImage imageNamed:@"menu"] text:nil];
+    [slideUpMenu addSideButtonWithImage:[UIImage imageNamed:@"walk"] text:nil];
+    [slideUpMenu addSideButtonWithImage:[UIImage imageNamed:@"run"] text:nil];
+    [slideUpMenu addSideButtonWithImage:[UIImage imageNamed:@"situp"] text:nil];
+    [slideUpMenu addSideButtonWithImage:[UIImage imageNamed:@"stair"] text:nil];
+    [slideUpMenu addSideButtonWithImage:[UIImage imageNamed:@"jumprope"] text:nil];
     
     [self.targetView addSubview:slideUpMenu.view];
 }
